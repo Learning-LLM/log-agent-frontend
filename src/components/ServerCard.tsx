@@ -20,7 +20,16 @@ export default function ServerCard({ server, onDelete }: Props) {
     >
       <div>
         <h3 style={{ margin: 0 }}>{server.name}</h3>
-        <p style={{ margin: "4px 0", color: "#666", fontSize: 13 }}>{server.host}</p>
+        <div style={{ marginTop: 4, display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {server.hosts.map((ip) => (
+            <span
+              key={ip}
+              style={{ background: "#f1f5f9", borderRadius: 4, padding: "2px 8px", fontSize: 12, color: "#475569" }}
+            >
+              {ip}
+            </span>
+          ))}
+        </div>
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <span
