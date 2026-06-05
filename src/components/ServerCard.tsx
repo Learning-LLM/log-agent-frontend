@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { ServerResponse } from "../api/client";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function ServerCard({ server, onDelete }: Props) {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -46,6 +48,12 @@ export default function ServerCard({ server, onDelete }: Props) {
         >
           {server.is_active ? "Active" : "Inactive"}
         </span>
+        <button
+          onClick={() => navigate(`/servers/${server.id}/edit`)}
+          style={{ padding: "4px 12px", cursor: "pointer", color: "#3b82f6", border: "1px solid #3b82f6", background: "white", borderRadius: 4 }}
+        >
+          수정
+        </button>
         <button
           onClick={() => onDelete(server.id)}
           style={{ padding: "4px 12px", cursor: "pointer", color: "#ef4444", border: "1px solid #ef4444", background: "white", borderRadius: 4 }}

@@ -13,6 +13,14 @@ export interface ServerCreate {
   github_token?: string;
 }
 
+export interface ServerUpdate {
+  name?: string;
+  hosts?: string[];
+  git_repo_url?: string;
+  git_branch?: string;
+  github_token?: string;
+}
+
 export interface ServerResponse {
   id: number;
   name: string;
@@ -36,6 +44,7 @@ export interface AnalysisRecord {
 export const serversApi = {
   list: () => api.get<ServerResponse[]>("/api/v1/servers"),
   create: (data: ServerCreate) => api.post<ServerResponse>("/api/v1/servers", data),
+  update: (id: number, data: ServerUpdate) => api.put<ServerResponse>(`/api/v1/servers/${id}`, data),
   delete: (id: number) => api.delete(`/api/v1/servers/${id}`),
 };
 

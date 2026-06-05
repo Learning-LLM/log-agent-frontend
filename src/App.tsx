@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import AnalysisHistory from "./pages/AnalysisHistory";
 import Dashboard from "./pages/Dashboard";
+import ServerEdit from "./pages/ServerEdit";
 import ServerRegister from "./pages/ServerRegister";
 
 function NavBar() {
@@ -30,6 +31,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/register" element={<ServerRegister />} />
+        <Route path="/servers/:id/edit" element={<ServerEdit />} />
         <Route path="/history" element={<AnalysisHistory />} />
       </Routes>
     </BrowserRouter>
