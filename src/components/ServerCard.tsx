@@ -20,12 +20,7 @@ export default function ServerCard({ server, onDelete }: Props) {
     >
       <div>
         <h3 style={{ margin: 0 }}>{server.name}</h3>
-        <p style={{ margin: "4px 0", color: "#666", fontSize: 13 }}>
-          {server.username}@{server.host}
-        </p>
-        <p style={{ margin: "4px 0", color: "#888", fontSize: 12 }}>
-          {server.log_path} · branch: {server.git_branch}
-        </p>
+        <p style={{ margin: "4px 0", color: "#666", fontSize: 13 }}>{server.host}</p>
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <span
