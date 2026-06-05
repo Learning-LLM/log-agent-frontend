@@ -8,12 +8,16 @@ export const api = axios.create({
 export interface ServerCreate {
   name: string;
   hosts: string[];
+  git_repo_url: string;
+  git_branch: string;
 }
 
 export interface ServerResponse {
   id: number;
   name: string;
   hosts: string[];
+  git_repo_url: string;
+  git_branch: string;
   is_active: boolean;
 }
 

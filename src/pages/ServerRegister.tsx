@@ -5,6 +5,8 @@ import { serversApi } from "../api/client";
 export default function ServerRegister() {
   const [name, setName] = useState("");
   const [hosts, setHosts] = useState<string[]>([""]);
+  const [gitRepoUrl, setGitRepoUrl] = useState("");
+  const [gitBranch, setGitBranch] = useState("main");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -21,10 +23,14 @@ export default function ServerRegister() {
       setError("IP를 하나 이상 입력해주세요.");
       return;
     }
+    if (!gitRepoUrl.trim()) {
+      setError("Git 저장소 URL을 입력해주세요.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
-      await serversApi.create({ name, hosts: filtered });
+      await serversApi.create({ name, hosts: filtered, git_repo_url: gitRepoUrl.trim(), git_branch: gitBranch.trim() || "main" });
       navigate("/");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "서버 등록 실패");
@@ -81,6 +87,29 @@ export default function ServerRegister() {
           >
             + IP 추가
           </button>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>Git 저장소 URL</label>
+          <input
+            type="text"
+            value={gitRepoUrl}
+            onChange={(e) => setGitRepoUrl(e.target.value)}
+            placeholder="예: https://github.com/org/repo.git"
+            required
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>브랜치</label>
+          <input
+            type="text"
+            value={gitBranch}
+            onChange={(e) => setGitBranch(e.target.value)}
+            placeholder="main"
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
         </div>
 
         {error && <p style={{ color: "red" }}>{error}</p>}

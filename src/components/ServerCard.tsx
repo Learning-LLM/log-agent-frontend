@@ -30,6 +30,9 @@ export default function ServerCard({ server, onDelete }: Props) {
             </span>
           ))}
         </div>
+        <div style={{ marginTop: 6, fontSize: 12, color: "#94a3b8" }}>
+          {server.git_repo_url} <span style={{ marginLeft: 6, background: "#e2e8f0", borderRadius: 4, padding: "1px 6px" }}>{server.git_branch}</span>
+        </div>
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <span
