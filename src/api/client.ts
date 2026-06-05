@@ -10,6 +10,7 @@ export interface ServerCreate {
   hosts: string[];
   git_repo_url: string;
   git_branch: string;
+  github_token?: string;
 }
 
 export interface ServerResponse {

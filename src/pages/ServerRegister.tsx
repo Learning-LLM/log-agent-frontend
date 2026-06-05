@@ -7,6 +7,7 @@ export default function ServerRegister() {
   const [hosts, setHosts] = useState<string[]>([""]);
   const [gitRepoUrl, setGitRepoUrl] = useState("");
   const [gitBranch, setGitBranch] = useState("main");
+  const [githubToken, setGithubToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -30,7 +31,13 @@ export default function ServerRegister() {
     setLoading(true);
     setError("");
     try {
-      await serversApi.create({ name, hosts: filtered, git_repo_url: gitRepoUrl.trim(), git_branch: gitBranch.trim() || "main" });
+      await serversApi.create({
+        name,
+        hosts: filtered,
+        git_repo_url: gitRepoUrl.trim(),
+        git_branch: gitBranch.trim() || "main",
+        github_token: githubToken.trim() || undefined,
+      });
       navigate("/");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "서버 등록 실패");
@@ -108,6 +115,19 @@ export default function ServerRegister() {
             value={gitBranch}
             onChange={(e) => setGitBranch(e.target.value)}
             placeholder="main"
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>
+            GitHub Token <span style={{ color: "#94a3b8", fontWeight: 400 }}>(private repo만 필요)</span>
+          </label>
+          <input
+            type="password"
+            value={githubToken}
+            onChange={(e) => setGithubToken(e.target.value)}
+            placeholder="ghp_xxxxxxxxxxxx"
             style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
           />
         </div>
