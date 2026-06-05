@@ -7,13 +7,13 @@ export const api = axios.create({
 
 export interface ServerCreate {
   name: string;
-  host: string;
+  hosts: string[];
 }
 
 export interface ServerResponse {
   id: number;
   name: string;
-  host: string;
+  hosts: string[];
   is_active: boolean;
 }
 
