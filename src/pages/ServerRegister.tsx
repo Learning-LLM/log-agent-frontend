@@ -5,11 +5,6 @@ import { serversApi, type ServerCreate } from "../api/client";
 const defaultForm: ServerCreate = {
   name: "",
   host: "",
-  username: "ec2-user",
-  pem_key: "",
-  project_path: "/home/ec2-user/Project/puppynote-server",
-  log_path: "/home/ec2-user/Project/puppynote-server/logs/app.log",
-  git_branch: "main",
 };
 
 export default function ServerRegister() {
@@ -32,45 +27,35 @@ export default function ServerRegister() {
     }
   };
 
-  const field = (
-    label: string,
-    key: keyof ServerCreate,
-    placeholder?: string,
-    textarea?: boolean
-  ) => (
-    <div style={{ marginBottom: 16 }}>
-      <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>{label}</label>
-      {textarea ? (
-        <textarea
-          rows={8}
-          value={form[key]}
-          onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-          placeholder={placeholder}
-          style={{ width: "100%", fontFamily: "monospace", fontSize: 12, padding: 8, boxSizing: "border-box" }}
-        />
-      ) : (
-        <input
-          type="text"
-          value={form[key]}
-          onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-          placeholder={placeholder}
-          style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
-        />
-      )}
-    </div>
-  );
-
   return (
-    <div style={{ maxWidth: 700, margin: "0 auto", padding: 24 }}>
+    <div style={{ maxWidth: 480, margin: "0 auto", padding: 24 }}>
       <h2>서버 등록</h2>
+      <p style={{ color: "#64748b", fontSize: 14 }}>
+        등록된 서버 IP에서 에러가 전송될 때만 LLM 분석이 동작합니다.
+      </p>
       <form onSubmit={handleSubmit}>
-        {field("서버 이름", "name", "예: puppynote-prod")}
-        {field("호스트 IP", "host", "예: 13.124.xxx.xxx")}
-        {field("SSH 사용자", "username", "ec2-user")}
-        {field(".pem 키 내용", "pem_key", "-----BEGIN RSA PRIVATE KEY-----", true)}
-        {field("프로젝트 경로", "project_path", "/home/ec2-user/Project/puppynote-server")}
-        {field("로그 파일 경로", "log_path", "/home/ec2-user/Project/puppynote-server/logs/app.log")}
-        {field("Git 브랜치", "git_branch", "main")}
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>서버 이름</label>
+          <input
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="예: puppynote-dev"
+            required
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>서버 IP</label>
+          <input
+            type="text"
+            value={form.host}
+            onChange={(e) => setForm({ ...form, host: e.target.value })}
+            placeholder="예: 13.124.xxx.xxx"
+            required
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
+        </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit" disabled={loading} style={{ padding: "10px 24px" }}>
           {loading ? "등록 중..." : "등록"}
