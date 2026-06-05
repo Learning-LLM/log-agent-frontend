@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { serversApi, type ServerCreate } from "../api/client";
+import { serversApi } from "../api/client";
 
 export default function ServerRegister() {
   const [name, setName] = useState("");
