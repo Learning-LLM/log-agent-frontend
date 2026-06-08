@@ -8,6 +8,7 @@ export default function ServerRegister() {
   const [gitRepoUrl, setGitRepoUrl] = useState("");
   const [gitBranch, setGitBranch] = useState("main");
   const [githubToken, setGithubToken] = useState("");
+  const [slackWebhookUrl, setSlackWebhookUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ export default function ServerRegister() {
         git_repo_url: gitRepoUrl.trim(),
         git_branch: gitBranch.trim() || "main",
         github_token: githubToken.trim() || undefined,
+        slack_webhook_url: slackWebhookUrl.trim() || undefined,
       });
       navigate("/");
     } catch (err: unknown) {
@@ -128,6 +130,24 @@ export default function ServerRegister() {
             value={githubToken}
             onChange={(e) => setGithubToken(e.target.value)}
             placeholder="ghp_xxxxxxxxxxxx"
+            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+          />
+        </div>
+
+        <hr style={{ margin: "20px 0", borderColor: "#e2e8f0" }} />
+        <p style={{ color: "#64748b", fontSize: 13, marginBottom: 12 }}>
+          Slack 알림 설정 (둘 중 하나만 입력해도 됩니다)
+        </p>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>
+            Slack Webhook URL <span style={{ color: "#94a3b8", fontWeight: 400 }}>(Incoming Webhook)</span>
+          </label>
+          <input
+            type="text"
+            value={slackWebhookUrl}
+            onChange={(e) => setSlackWebhookUrl(e.target.value)}
+            placeholder="https://hooks.slack.com/services/..."
             style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
           />
         </div>

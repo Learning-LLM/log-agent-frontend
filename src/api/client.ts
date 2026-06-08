@@ -11,6 +11,7 @@ export interface ServerCreate {
   git_repo_url: string;
   git_branch: string;
   github_token?: string;
+  slack_webhook_url?: string;
 }
 
 export interface ServerUpdate {
@@ -19,6 +20,7 @@ export interface ServerUpdate {
   git_repo_url?: string;
   git_branch?: string;
   github_token?: string;
+  slack_webhook_url?: string;
 }
 
 export interface ServerResponse {
@@ -27,6 +29,7 @@ export interface ServerResponse {
   hosts: string[];
   git_repo_url: string;
   git_branch: string;
+  slack_webhook_url: string | null;
   is_active: boolean;
 }
 
